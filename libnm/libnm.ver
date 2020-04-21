@@ -1696,6 +1696,7 @@ global:
 	nm_setting_bridge_get_multicast_query_response_interval;
 	nm_setting_bridge_get_multicast_query_use_ifaddr;
 	nm_setting_bridge_get_multicast_router;
+	nm_setting_bridge_get_multicast_startup_query_count;
 	nm_setting_bridge_get_vlan_protocol;
 	nm_setting_bridge_get_vlan_stats_enabled;
 	nm_setting_vrf_get_table;
