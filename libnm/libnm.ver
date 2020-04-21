@@ -1689,6 +1689,7 @@ global:
 	nm_setting_bridge_get_multicast_hash_max;
 	nm_setting_bridge_get_multicast_last_member_count;
 	nm_setting_bridge_get_multicast_last_member_interval;
+	nm_setting_bridge_get_multicast_membership_interval;
 	nm_setting_bridge_get_multicast_querier;
 	nm_setting_bridge_get_multicast_query_use_ifaddr;
 	nm_setting_bridge_get_multicast_router;
