@@ -6,9 +6,26 @@ After=NetworkManager.service
 Before=network-online.target
 
 [Service]
+# `nm-online -s` waits until the point when NetworkManager logs
+# "startup complete". That means startup actions are settled and
+# devices and profiles reached a conclusive activated or deactivated state.
+# That depends on which profiles are configured to autoconnect. It also depends
+# the profiles settings like ipv4.may-fail/ipv6.may-fail, which affect when
+# a profile is considered fully activated.
+# Check NetworkManager logs to find out why it takes longer than expected.
+
 Type=oneshot
-ExecStart=@bindir@/nm-online -s -q --timeout=30
+ExecStart=@bindir@/nm-online -s -q
 RemainAfterExit=yes
+
+# Set $NM_ONLINE_TIMEOUT variable for timeout in seconds.
+# Edit with `systemctl edit NetworkManager-wait-online`.
+#
+# Note, this timeout should commonly not be reached. If your boot
+# gets delayed too long, then the solution is not to decrease the
+# timeout, but to fix your setup so that the connected state
+# gets reached earlier.
+Environment=NM_ONLINE_TIMEOUT=30
 
 [Install]
 WantedBy=network-online.target
