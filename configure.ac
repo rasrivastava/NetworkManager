@@ -673,6 +673,25 @@ else
 fi
 AC_SUBST(NM_MODIFY_SYSTEM_POLICY)
 
+AC_ARG_ENABLE(firewalld-zone,
+              AS_HELP_STRING([--enable-firewalld-zone], [Install and use firewalld zone for shared mode]),
+              [enable_firewalld_zone=${enableval}],
+              [enable_firewalld_zone=yes])
+
+if test "${enable_firewalld_zone}" = "yes"; then
+	AC_DEFINE(WITH_FIREWALLD_ZONE, 1, [Define if NetworkManager should use a custom zone for shared mode])
+else
+	AC_DEFINE(WITH_FIREWALLD_ZONE, 0, [Define if NetworkManager should use a custom zone for shared mode])
+fi
+AM_CONDITIONAL(WITH_FIREWALLD_ZONE, test "${enable_firewalld_zone}" = "yes")
+
+if test "${enable_modify_system}" = "yes"; then
+	NM_MODIFY_SYSTEM_POLICY="yes"
+else
+	NM_MODIFY_SYSTEM_POLICY="auth_admin_keep"
+fi
+
+
 PKG_CHECK_MODULES(GNUTLS, [gnutls >= 2.12], [have_crypto_gnutls=yes], [have_crypto_gnutls=no])
 PKG_CHECK_MODULES(NSS, [nss], [have_crypto_nss=yes], [have_crypto_nss=yes])
 if test "${have_crypto_nss}" = "yes"; then
@@ -1362,6 +1381,7 @@ echo "Miscellaneous:"
 echo "  have introspection: $have_introspection"
 echo "  build documentation and manpages: $build_docs"
 echo "  install pregenerated documentation and manpages: $use_pregen_docs"
+echo "  install and use firewalld shared zone: $enable_firewalld_zone"
 echo "  tests: $enable_tests"
 echo "  more-asserts: $more_asserts"
 echo "  more-logging: $enable_more_logging"

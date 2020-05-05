@@ -930,6 +930,7 @@ fi
 %{_datadir}/dbus-1/system-services/org.freedesktop.nm_dispatcher.service
 %{_datadir}/polkit-1/actions/*.policy
 %{_prefix}/lib/udev/rules.d/*.rules
+%{_prefix}/lib/firewalld/zones/nm-shared.xml
 # systemd stuff
 %{systemd_dir}/NetworkManager.service
 %{systemd_dir}/NetworkManager-wait-online.service

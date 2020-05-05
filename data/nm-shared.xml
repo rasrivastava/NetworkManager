@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zone target="ACCEPT">
+  <short>NM Shared</short>
+
+  <description>
+    Zone for NetworkManager connection sharing. Block all traffic to
+    the local machine except ICMPv6, DHCP, ICMPv6 and DNS. Allow all
+    forwarded traffic.
+  </description>
+
+  <rule priority='32767'>
+    <reject/>
+  </rule>
+
+  <protocol value='icmp'/>
+  <protocol value='ipv6-icmp'/>
+  <service name="dhcp"/>
+  <service name="dns"/>
+  <masquerade/>
+</zone>
