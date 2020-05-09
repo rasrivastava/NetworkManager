@@ -685,6 +685,7 @@ nmtstp_run_command_check_external (int external_command)
 	}
 	if (!nmtstp_is_root_test ())
 		return FALSE;
+	return TRUE;
 	return (nmtst_get_rand_uint32 () % 2) == 0;
 }
 
@@ -1245,7 +1246,10 @@ nmtstp_link_gre_add (NMPlatform *platform,
 
 	if (external_command) {
 		gs_free char *dev = NULL;
+		char sbuf[1024];
 		char *obj, *type;
+
+		_LOGI ("adding gre device using iproute2: name=%s, %s", name, nm_platform_lnk_gre_to_string (lnk, sbuf, sizeof (sbuf)));
 
 		if (lnk->parent_ifindex)
 			dev = g_strdup_printf ("dev %s", nm_platform_link_get_name (platform, lnk->parent_ifindex));

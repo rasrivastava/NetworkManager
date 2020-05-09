@@ -1321,9 +1321,14 @@ test_software_detect (gconstpointer user_data)
 		}
 		case NM_LINK_TYPE_GRETAP: {
 			const NMPlatformLnkGre *plnk = &lnk->lnk_gre;
+			char sbuf[1024];
 
 			g_assert (plnk == nm_platform_link_get_lnk_gretap (NM_PLATFORM_GET, ifindex, NULL));
-			g_assert (nm_platform_lnk_gre_cmp (plnk, &lnk_gre) == 0);
+			if (nm_platform_lnk_gre_cmp (plnk, &lnk_gre) != 0) {
+				_LOGE (">>> plnk-gre-expect: %s", nm_platform_lnk_gre_to_string (&lnk_gre, sbuf, sizeof (sbuf)));
+				_LOGE (">>> plnk-gre-actual: %s", nm_platform_lnk_gre_to_string (plnk, sbuf, sizeof (sbuf)));
+				g_assert (!"FAIL: unexpected gre device");
+			}
 			break;
 		}
 		case NM_LINK_TYPE_IP6TNL: {

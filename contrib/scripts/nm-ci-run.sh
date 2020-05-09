@@ -178,6 +178,8 @@ run_autotools() {
             export NMTST_NO_CHECK_SETTINGS_DOCS=yes
         fi
 
+        NMTST_DEBUG=d ../tools/run-nm-test.sh -m src/platform/tests/test-link-linux
+
         if ! make check -j 6 -k ; then
 
             _print_test_logs "first-test"
